@@ -16,14 +16,36 @@
  * @param {ListNode} list2
  * @return {ListNode}
  */
+// variant-1
 var mergeTwoLists = function (list1, list2) {
   answer = [];
-  if (list1 == [] && list2 == []) answer;
+  if (list1 == [] && list2 == []) answer = [];
   else {
     for (i = 0; i < list1.length; i++) answer.sort().push(list1[i]);
     for (j = 0; j < list2.length; j++) answer.sort().push(list2[j]);
   }
   return answer;
+};
+
+// variant-2
+var mergeTwoLists = function (list1, list2) {
+  var dummy = {
+    val: -1,
+    next: null,
+  };
+  var curr = dummy;
+  while (list1 && list2) {
+    if (list1.val > list2.val) {
+      curr.next = list2;
+      list2 = list2.next;
+    } else {
+      curr.next = list1;
+      list1 = list1.next;
+    }
+    curr = curr.next;
+  }
+  curr.next = list1 || list2;
+  return dummy.next;
 };
 
 (list1 = []), (list2 = [0]);
